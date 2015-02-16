@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- META -->
+	<title>CSI4139 Labs</title>
+	<meta charset="utf-8">
+	
+	<!-- LINK BOOTSTRAP -->
+	<link 	rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	
+	<!-- CUSTOM -->
+	<!--<link rel="icon" href="../../key.ico">-->
+	 <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+	<nav id="header" class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">CSI4139 Labs</a>
+			</div>
+		</div>
+	</nav>
+	
+	<div id="intro" class="container">
+		</br></br>
+		<h1>Lab 1</h1>
+		</br></br>
+	</div>
+	
+	<?php echo phpversion() ?>
+	
+	<div id="columns" class="container">
+		<!-- DOC: post so content will not be written to log file -->
+		<form action="signin.php" method="POST">
+			<h2>Sign in</h2>
+			<label>Email: </label><br/>
+			<input type="email" name="email"><br/>
+			<label>Password: </label><br/>
+			<input type="password" name="password"><br/><br/>
+			<input type="submit" value="Sign in"><br/><br/>
+		</form>
+		<p>Don't have an account? <a href="signup.html"> Sign up!</a></p>
+		<p>Forgot your password? <a href="resetpw.html"> Reset password.</a></p>
+	</div>
+	
+</body>
+
+</html>
