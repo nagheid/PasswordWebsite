@@ -32,18 +32,19 @@
 	</div>
 	
 	<div id="columns" class="container">
-		<form action="resetpw.php" method="POST">
-			<p>If you have forgotten your password, please enter your email address to set a new password:</p>
-			<label>Email:</label><br/>
-			<input type="email" name="email"><br/><br/>
-			<input type="submit" value="Reset"><br/><br/>
+		<form action="changepw.php" method="POST">
+			<h2>Change passoword</h2>
+			<p>Please enter a new password</p>
+			<input type="hidden" name="email"><br/>
+			<label>Re-enter Email</label><br/>
+			<input type="email" name="confirm_email"><br/>
+			<label>Password: </label><br/>
+			<input type="password" name="password"><br/>
+			<label>Confirm Password: </label><br/>
+			<input type="password" name="confirm_password"><br/><br/>
+			<input type="submit" value="Change password"><br/><br/>
 		</form>
-		<!--
-		<form action="result.php" method="GET">
-			<input type="hidden" name="result" value="Check your email for a rest link">
-		</form>
-		-->
 	</div>
-	
+
 </body>
 </html>

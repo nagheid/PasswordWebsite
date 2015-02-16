@@ -40,8 +40,7 @@ function signup() {
 		// Add to DB
 		$query = "INSERT INTO user (email, pword) VALUES ('$email_safe', '$pword_hash')";		
 		$user = $mysql->query($query);
-
-		// TODO
+	
 		if ($user == TRUE) {
 			$messages = $messages.'User inserted successfully!<br>';
 		} else {
@@ -75,7 +74,7 @@ function verify_email($email) {
 	$confirm_key = $email.date('mY');
 	$confirm_key = md5($confirm_key);
 	
-	$link = "http://localhost/CSI4139L1/signup.php?email=".$email."&key=".$confirm_key;
+	$link = "http://localhost/PasswordWebsite/signup.php?email=".$email."&key=".$confirm_key;
 	
 	$body = "Hello, <br><br>" .
 			"Please verify your email by clicking on the " .
