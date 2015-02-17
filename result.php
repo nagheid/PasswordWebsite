@@ -1,52 +1,17 @@
 <?php
-#session_start();
-require('utils.php');
+include('header.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<!-- META -->
-	<title>CSI4139 Labs</title>
-	<meta charset="utf-8">
-	<meta http-equiv="refresh" content="5;url=index.html">
+<div class="container">
+	<p>
+	<?php
+		//echo $_SESSION['message'];
+		$result = $_GET['result'];
+		print_messages($result);
+	?>
+	</p>
+</div>
 	
-	<!-- LINK BOOTSTRAP -->
-	<link 	rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	
-	<!-- CUSTOM -->
-	<!--<link rel="icon" href="../../key.ico">-->
-	 <link rel="stylesheet" href="stylesheet.css">
-</head>
-
-<body>
-	<nav id="header" class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">CSI4139 Labs</a>
-			</div>
-		</div>
-	</nav>
-	
-	<div id="intro" class="container">
-		</br></br>
-		<h1>Lab 1</h1>
-		</br></br>
-	</div>
-
-	<div class="container">
-		<p>
-		<?php
-			//echo $_SESSION['message'];
-			$result = $_GET['result'];
-			print_messages($result);
-		?>
-		</p>
-	</div>
-	
-</body>
-
-</html>
+<?php
+include('footer.php');
+?>

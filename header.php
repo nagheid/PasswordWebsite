@@ -1,3 +1,8 @@
+ <?php
+#session_start();
+require('utils.php');
+?>
+
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -5,6 +10,7 @@
 	<!-- META -->
 	<title>CSI4139 Labs</title>
 	<meta charset='utf-8'>
+	<meta http-equiv='refresh' content='5;url=index.html'>
 	
 	<!-- LINK BOOTSTRAP -->
 	<link 	rel='stylesheet' href='bootstrap/css/bootstrap.min.css'>
@@ -30,21 +36,3 @@
 		<h1>Lab 1</h1>
 		</br></br>
 	</div>
-	
-	<div id='columns' class='container'>
-		<!-- DOC: post so content will not be written to log file -->
-		<form action='signin.php' method='POST'>
-			<h2>Sign in</h2>
-			<label>Email: </label><br/>
-			<input type='email' name='email'><br/>
-			<label>Password: </label><br/>
-			<input type='password' name='password'><br/><br/>
-			<input type='submit' value='Sign in'><br/><br/>
-		</form>
-		<p>Don't have an account? <a href='signup.html'> Sign up!</a></p>
-		<p>Forgot your password? <a href='resetpw.html'> Reset password.</a></p>
-	</div>
-	
-</body>
-
-</html>

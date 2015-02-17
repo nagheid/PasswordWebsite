@@ -78,7 +78,7 @@ function update_pw() {
 	if ( $result != 'error') {
 		// Pre-process data
 		$email_safe = $mysql->real_escape_string($email);
-		$pword_hash = password_hash($pword, PASSWORD_BCRYPT);
+		$pword_hash = password_hash($pword, PASSWORD_DEFAULT);
 		
 		// Add to DB
 		$query = "UPDATE user SET pword='$pword_hash' WHERE email='$email_safe'";		

@@ -2,11 +2,13 @@
 
 require('utils.php');
 
+// Render
+singup_form();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	signup();
 } else if (!empty($_GET['key'])) {
 	confirm_user();
-	var_dump($_GET);
 }
 
 function signup() {
@@ -19,7 +21,6 @@ function signup() {
 	
 	// Retrieve data
 	$email = $_POST['email'];
-	// TODO this doesn't seem safe
 	$pword = $_POST['password'];
 	
 	// Validate data
@@ -35,7 +36,7 @@ function signup() {
 	if ( $result != 'error') {
 		// Pre-process data
 		$email_safe = $mysql->real_escape_string($email);
-		$pword_hash = password_hash($pword, PASSWORD_BCRYPT);
+		$pword_hash = password_hash($pword, PASSWORD_DEFAULT);
 		
 		// Add to DB
 		$query = "INSERT INTO user (email, pword) VALUES ('$email_safe', '$pword_hash')";		
@@ -74,7 +75,7 @@ function verify_email($email) {
 	$confirm_key = $email.date('mY');
 	$confirm_key = md5($confirm_key);
 	
-	$link = "http://localhost/PasswordWebsite/signup.php?email=".$email."&key=".$confirm_key;
+	$link = "https://localhost/PasswordWebsite/signup.php?email=".$email."&key=".$confirm_key;
 	
 	$body = "Hello, <br><br>" .
 			"Please verify your email by clicking on the " .
@@ -118,4 +119,21 @@ function confirm_user() {
 	header('Location: result.php?result='.$message);
 }
 
+function singup_form() {
+	include('header.php');
+	echo "
+	<div id='columns' class='container'
+		<form action='signup.php' method='POST'>
+			<h2>Sign up</h2>
+			<!-- specifying type 'Email' prevents SQL injection -->
+			<label>Email</label><br/>
+			<input type='email' name='email'><br/>
+			<label>Password: </label><br/>
+			<input type='password' name='password'><br/><br/>
+			<input type='submit' value='Sign up'><br/><br/>
+		</form>
+	</div>
+	";
+	include('footer.php');
+}
 ?>

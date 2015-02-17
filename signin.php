@@ -2,11 +2,33 @@
 
 require('utils.php');
 
+// Render form
+singin_form();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	session_start();
 	signin();
-} else {
-	var_dump($_GET);
+}
+
+
+function singin_form() {
+	include('header.php');
+	echo "
+	<div id='columns' class='container'>
+		<!-- DOC: post so content will not be written to log file -->
+		<form action='signin.php' method='POST'>
+			<h2>Sign in</h2>
+			<label>Email: </label><br/>
+			<input type='email' name='email'><br/>
+			<label>Password: </label><br/>
+			<input type='password' name='password'><br/><br/>
+			<input type='submit' value='Sign in'><br/><br/>
+		</form>
+		<p>Don't have an account? <a href='signup.html'> Sign up!</a></p>
+		<p>Forgot your password? <a href='resetpw.html'> Reset password.</a></p>
+	</div>
+	";
+	include('footer.php');
 }
 
 function signin() {
@@ -58,14 +80,8 @@ function signin() {
 	// Close connection to DB
 	$mysql->close();
 	
-	// TODO redirect to "profile" page
-	//header($message);
-	//$_GET['message'] = $message;
-	//$_POST['message'] = $message;
-	///$_SESSION['message'] = $message;
-	//$_COOKIE['message'] = $message;
+	// Redirect to "result" page
 	header('Location: result.php?result='.$message);
-	//echo $message;
 }
 
 

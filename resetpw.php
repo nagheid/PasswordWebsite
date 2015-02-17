@@ -2,11 +2,29 @@
 
 require('utils.php');
 
+// Render form
+reset_form();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	session_start();
 	reset_db();
 } else {
 	//change_pw();
+}
+
+function reset_form() {
+	include('header.php');
+	echo "
+	<div id='columns' class='container'>
+		<form action='resetpw.php' method='POST'>
+			<p>If you have forgotten your password, please enter your email address to set a new password:</p>
+			<label>Email:</label><br/>
+			<input type='email' name='email'><br/><br/>
+			<input type='submit' value='Reset'><br/><br/>
+		</form>
+	</div>
+	";
+	include('footer.php');
 }
 
 function reset_db() {
@@ -39,7 +57,6 @@ function reset_db() {
 		$key_hash   = md5($key);
 		
 		// Update DB
-		///*
 		$query = "INSERT INTO reset_requests (reset_pword, expiry_time, user_email) VALUES ('$key_hash', '$expiry_time', '$email_safe')";		
 		$result = $mysql->query($query);
 			
@@ -48,18 +65,17 @@ function reset_db() {
 		} else {
 			$messages .= 'Failed to send reset email.<br/>';
 		}
-		//*/
 	}
 
 	// Close connection to DB
 	$mysql->close();
 	
 	// Render result.php
-	//header('Location: result.php?result='.$messages);
+	header('Location: result.php?result='.$messages);
 }
 	
 function reset_email($email, $key) {
-	$link = "http://localhost/PasswordWebsite/changepw.php?email=".$email."&key=".$key;
+	$link = "https://localhost/PasswordWebsite/changepw.php?email=".$email."&key=".$key;
 	
 	$body = "Hello, <br><br>" .
 			"Please follow the link below to create a " .
