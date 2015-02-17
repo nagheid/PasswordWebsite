@@ -33,7 +33,8 @@ function signup() {
 	if ( $result != 'error') {
 		// Pre-process data
 		$email_safe = $mysql->real_escape_string($email);
-		$pword_hash = password_hash($pword, PASSWORD_DEFAULT);
+		$pword_safe = $mysql->real_escape_string($pword);
+		$pword_hash = password_hash($pword_safe, PASSWORD_DEFAULT);
 		
 		// Add to DB
 		$query = "INSERT INTO user (email, pword) VALUES ('$email_safe', '$pword_hash')";		

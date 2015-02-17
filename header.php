@@ -18,7 +18,6 @@ require('utils.php');
 	<script src='bootstrap/js/bootstrap.min.js'></script>
 	
 	<!-- CUSTOM -->
-	<!--<link rel='icon' href='../../key.ico'>-->
 	 <link rel='stylesheet' href='stylesheet.css'>
 </head>
 
