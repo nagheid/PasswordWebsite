@@ -2,29 +2,8 @@
 
 require('utils.php');
 
-// Render form
-reset_form();
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	session_start();
 	reset_db();
-} else {
-	//change_pw();
-}
-
-function reset_form() {
-	include('header.php');
-	echo "
-	<div id='columns' class='container'>
-		<form action='resetpw.php' method='POST'>
-			<p>If you have forgotten your password, please enter your email address to set a new password:</p>
-			<label>Email:</label><br/>
-			<input type='email' name='email'><br/><br/>
-			<input type='submit' value='Reset'><br/><br/>
-		</form>
-	</div>
-	";
-	include('footer.php');
 }
 
 function reset_db() {
@@ -80,6 +59,8 @@ function reset_email($email, $key) {
 	$body = "Hello, <br><br>" .
 			"Please follow the link below to create a " .
 			"new password:<br>" . $link . "<br><br>" .
+			"This link will expire after 2 days for ".
+			"security reasons.<br><br>".
 			"Thanks";
 			
 	$result = send_email($body, $email);

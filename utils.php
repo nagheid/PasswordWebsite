@@ -30,16 +30,6 @@ function connectdb() {
 	return $mysql;
 }
 
-function print_messages($result) {
-	echo $result;
-	if ( is_array($result) && array_key_exists('messages', $result) ) {
-		var_dump($result['messages']);
-		foreach ($result['messages'] as $msg) {
-			echo $msg."<br>";
-		}
-	}
-}
-
 function send_email($body, $email_to) {
 	$email_host = 'smtp.gmail.com';
 	$email_port = 465;
@@ -63,4 +53,15 @@ function send_email($body, $email_to) {
 	
 	return $result;
 }
+
+function print_messages($result) {
+	echo $result;
+	if ( is_array($result) && array_key_exists('messages', $result) ) {
+		var_dump($result['messages']);
+		foreach ($result['messages'] as $msg) {
+			echo $msg."<br>";
+		}
+	}
+}
+
 ?>

@@ -39,7 +39,7 @@ function check_pw() {
 	
 	// Render html page
 	if ($found) {
-		header('Location: newpw.php?email='.$email);
+		header('Location: changepwform.php?email='.$email);
 	} else {
 		$messages = "Reset link is either invalid or expired. Please reset again.<br>";
 		header('Location: result.php?result='.$messages);
@@ -56,7 +56,6 @@ function update_pw() {
 	// Retrieve data
 	$email = $_POST['email'];
 	$email_confirm = $_POST['email_confirm'];
-	// TODO this doesn't seem safe
 	$pword = $_POST['password'];
 	$pword_confirm = $_POST['password_confirm'];
 	

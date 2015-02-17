@@ -2,9 +2,6 @@
 
 require('utils.php');
 
-// Render
-singup_form();
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	signup();
 } else if (!empty($_GET['key'])) {
@@ -14,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 function signup() {
 	// Initialize errors array
 	$result = null;
-	$messages = null;
+	$messages = '';
 	
 	// Create and check connection
 	$mysql = connectdb();
@@ -26,11 +23,11 @@ function signup() {
 	// Validate data
 	if (empty($email)) {
 		$result = 'error';
-		$messages = $messages.'Please enter an email address<br>';
+		$messages .= 'Please enter an email address<br>';
 	}
 	if (empty($pword)) {
 		$result = 'error';
-		$messages = $messages.'Please enter a password<br>';
+		$messages .= 'Please enter a password<br>';
 	}
 
 	if ( $result != 'error') {
@@ -43,11 +40,13 @@ function signup() {
 		$user = $mysql->query($query);
 	
 		if ($user == TRUE) {
-			$messages = $messages.'User inserted successfully!<br>';
+			$messages .= 'User inserted successfully!<br>';
 		} else {
 			$result = 'error';
-			$messages = $messages.'Failed to insert user.<br>';
-			$messages = $messages.'Error: '.$mysql->error.'<br>';
+			$messages .= 'Failed to insert user.<br>';
+			if ( $mysql->errno == '1062' ) {
+				$messages .= 'User already registered in system<br>.';
+			}
 		}
 
 		// Verify email
@@ -55,10 +54,10 @@ function signup() {
 			if( verify_email($email_safe) ){
 				//email sent
 				$result = 'success';
-				$messages = $messages.'Thanks for signing up. Please check your email for confirmation!<br>';
+				$messages .= 'Thanks for signing up. Please check your email for confirmation!<br>';
 			} else {		 
 				$result = 'error';
-				$messages = $messages.'Could not send confirmation email<br>';
+				$messages .= 'Could not send confirmation email<br>';
 			}
 		}
 	} 
@@ -117,23 +116,5 @@ function confirm_user() {
 	
 	// Render result.php
 	header('Location: result.php?result='.$message);
-}
-
-function singup_form() {
-	include('header.php');
-	echo "
-	<div id='columns' class='container'
-		<form action='signup.php' method='POST'>
-			<h2>Sign up</h2>
-			<!-- specifying type 'Email' prevents SQL injection -->
-			<label>Email</label><br/>
-			<input type='email' name='email'><br/>
-			<label>Password: </label><br/>
-			<input type='password' name='password'><br/><br/>
-			<input type='submit' value='Sign up'><br/><br/>
-		</form>
-	</div>
-	";
-	include('footer.php');
 }
 ?>

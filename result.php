@@ -5,9 +5,8 @@ include('header.php');
 <div class="container">
 	<p>
 	<?php
-		//echo $_SESSION['message'];
 		$result = $_GET['result'];
-		print_messages($result);
+		echo $result;
 	?>
 	</p>
 </div>
