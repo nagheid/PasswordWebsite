@@ -1,0 +1,42 @@
+php -r "require 'address.php'; exportAddress(12345);"
+
+=================================================================
+
+php phpa-norl/phpa-norl
+
+>
+require('security.php');
+
+list($snd_privatekey, $snd_publickey)=create_rsa_keys();
+list($rcv_privatekey, $rcv_publickey)=create_rsa_keys();
+
+$signed_file=sign('test.txt', $snd_privatekey);
+
+list($signed_file, $enc_file, $enc_symm)=sign_n_enc_file('test.txt', $snd_privatekey, $rcv_publickey);
+
+send_data("Alice", "nhe_1993@hotmail.co.uk", $signed_file, $enc_file, $enc_symm);
+
+dec_file($signed_file, $enc_file, $enc_symm, $snd_publickey, $rcv_privatekey);
+
+=================
+
+$rcv_publickey="-----BEGIN PUBLIC KEY----- MIGfMA0GCSqGSIb3DQEBAQUAA4GNA
+DCBiQKBgQCoa6VBlmSqeSbPWwC/eCBQbtBL UBEzoPrQ1+kltiOWBmu1pvo5cGeaJeh1JzcJBn+Z9JZl
+ogKJ+g4oC9IntyuWypS9 LZX1okoXD6ExQJZY42CnilJ42sq7Wrm9biYnYP5CmM3GcmQL/Gl0lPz2g7a
+xot6K 8hrrCHNsX6cnOqlSXwIDAQAB -----END PUBLIC KEY-----"
+
+$rcv_privatekey="-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQCoa6VBlmSqeSbPWwC/eCBQbtBLUBEzoPrQ1+kltiOWBmu1pvo5
+cGeaJeh1JzcJBn+Z9JZlogKJ+g4oC9IntyuWypS9LZX1okoXD6ExQJZY42CnilJ4
+2sq7Wrm9biYnYP5CmM3GcmQL/Gl0lPz2g7axot6K8hrrCHNsX6cnOqlSXwIDAQAB
+AoGBAIP+0aakmsKsbslGVkC5ggHnx2GvH7wp50j0XqqKpDs5TwMwGZ4YxWmfWh8v
+G8f8Ctd7RL/kiD7g9mVWVl+ABC1FlGMGGnGrzqjwCviOMloVk3hgZMLhxmNV1hPn
+at0+4m3ciSOU6f8wO8WPUkS5aBm3hRgiU/aTXzangZYO+JlZAkEA0y3uIvtZV2Nx
+c77xT3RKuZ009y3flHpAK/9cSV/+i94D90nNnD8P8XBav5D2BcKrx7p0mXB8+yAu
+DDa1Ot8txQJBAMwqe5g5yjXL50BdmBcoTdSvwWeNEdusKzIwoRpA80TxDRlKCS8n
+OM7qGYYx6WCRUQYLmhrSd8jN6vPoPHJmxdMCQFbuV1MrKLHii7db6LYOZxxVbJI7
+3gee83+pFPJXg89Ly1ImnW8uPn/jAlhNchkY8+G6DXmEZs5xhsMcWior6QkCQG8F
+swwGcPVsGiagPrJpElnT8UIULl/ccejrFNAn/aHByzOzVOc1Vuj92D9nKNeAbiTx
+bi2jwcuKXnegFC7JwE0CQQCakwDFO4wL14f9MjhP5woz+lPjI84AjdnzVJZ+yh+0
+7CYX3rr2/JLYsyCMai1m4lWZ/mNZxfIfKpJuISjxeh3C
+-----END RSA PRIVATE KEY-----"

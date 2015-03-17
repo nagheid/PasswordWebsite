@@ -67,65 +67,11 @@ function load_profile() {
 			// Upload public key form
 			echo "
 			<form action='security.php' method='POST'>
+				<!--<textarea name='public_key' required></textarea>-->
 				<input type='text' name='public_key' required>
 				<input type='submit' class='button' value='Upload Public Key' name='upload_public_key'><br/>
 			</form>
 			";
-			/*
-			// Create key pair form
-			echo "
-			<form action='security.php' method='POST'>
-				<input type='submit' class='button' value='Create Key Pair' name='create_key_pair'><br/>
-			</form>
-			";
-			
-			echo "<hr>";
-			
-			// Upload & sign a file
-			echo "
-			<form action='security.php' method='POST' enctype='multipart/form-data'>
-				<!--<input type='text' name='plaintext'>-->
-				Please upload a text file:
-				<input type='file' name='fileToSend' id='fileToSend' accept='.txt'>
-				<input type='submit' class='button' value='Sign File' name='sign_file'><br/>
-				<p>Note: this will sign the file using your private key</p>
-	
-			</form>
-			";
-			
-			echo "<hr>";
-			
-			// Generate symmetric key & encrypt file
-			echo "
-			<form action='security.php' method='POST'>
-				<input type='submit' class='button' value='Encrypt File' name='encrypt_file'><br/>
-				<p>Note: this will generate a symmetric key to encrypt the file</p>
-			</form>
-			";
-			
-			echo "<hr>";
-			
-			// Encrypt symm key
-			echo "
-			<form action='security.php' method='POST'>
-				Please enter receiver's public key:
-				<input type='text' name='rcv_key' required>
-				<input type='submit' class='button' value='Encrypt Symmetric Key' name='encrypt_symm_key'><br/><br/>
-			</form>
-			";
-			
-			echo "<hr>";
-			
-			// Send file
-			echo "
-			<form action='security.php' method='POST'>
-				Please enter receiver's enail:
-				<input type='text' name='rcv_email' required>
-				<input type='submit' class='button' value='Send Data' name='send_data'><br/>
-				<p>Note: this will send the signed hash, encrypted symmetric key and encrypted file.</p>
-			</form>
-			";
-			*/
 		}
 	
 		include('footer.php');
