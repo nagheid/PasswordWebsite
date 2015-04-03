@@ -92,7 +92,7 @@ function verify($dec_file, $signed_file, $snd_publickey) {
 	$rsa->loadKey($snd_publickey); // public key
 
 	// Read data
-	$vdata = base64_decode($signed_file);
+	//$vdata = base64_decode($signed_file);
 	
 	echo "Signed file:\n".$signed_file."\n\n";
 	echo "Decrypted file:\n".$dec_file."\n\n";
@@ -147,7 +147,7 @@ function enc_key($data, $key) {
 	return $enc_data;
 }
 
-function sign_n_enc_file($fname, $snd_privatekey, $rcv_publickey) {
+function sign_n_encrypt($fname, $snd_privatekey, $rcv_publickey) {
 	// Hash file and sign with private key
 	echo "Signing original file...\n";
 	echo "------------------------\n";
@@ -200,7 +200,7 @@ function dec_key($data, $key) {
 }
 
 // BOB
-function decrypt($signed_file, $enc_file, $enc_symm, $snd_publickey, $rcv_privatekey) {
+function decrypt_n_verify($signed_file, $enc_file, $enc_symm, $snd_publickey, $rcv_privatekey) {
 	// Decrypts symm key
 	echo "Decrypting symmetric key...\n";
 	echo "---------------------------\n";

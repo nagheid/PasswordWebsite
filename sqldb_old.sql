@@ -31,24 +31,9 @@ CREATE TABLE IF NOT EXISTS lab1.profile (
     FOREIGN KEY (user_id) REFERENCES lab1.user(user_id)
 );
 
-DROP TABLE lab1.transfers;
-CREATE TABLE IF NOT EXISTS lab1.transfers (
-	transfer_id	int NOT NULL AUTO_INCREMENT,
-    sender_id	int NOT NULL,
-    rcver_email varchar(128),
-	#upl_file	text,
-    signed_file text,
-    #symm_key	text,
-    enc_symmkey text,
-    enc_file	text,
-	PRIMARY KEY (transfer_id),
-    FOREIGN KEY (sender_id) REFERENCES lab1.user(user_id)
-);
-
 # TESTING
 SELECT * FROM lab1.user;
 SELECT * FROM lab1.profile;
-SELECT * FROM lab1.transfers;
 
 SELECT user.pword FROM user WHERE user.email='neid.1993@gmail.com';
 
