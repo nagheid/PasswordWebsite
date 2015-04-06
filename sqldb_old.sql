@@ -20,20 +20,33 @@ CREATE TABLE IF NOT EXISTS lab1.reset_requests (
 	PRIMARY KEY(reset_id)
 );
 
-# DROP TABLE lab1.profile;
+DROP TABLE lab1.transfers;
+
+#DROP TABLE lab1.profile;
 CREATE TABLE IF NOT EXISTS lab1.profile (
 	profile_id	int NOT NULL AUTO_INCREMENT,
     user_id		int NOT NULL,
 	firstname	varchar(128),
 	lastname	varchar(128),
     public_key	text,
+    age			int,
 	PRIMARY KEY (profile_id),
     FOREIGN KEY (user_id) REFERENCES lab1.user(user_id)
+);
+
+#DROP TABLE lab1.user_access;
+CREATE TABLE IF NOT EXISTS lab1.user_access (
+	owner_id	int NOT NULL,
+    viewer_id	int NOT NULL,
+    FOREIGN KEY (owner_id) REFERENCES lab1.user(user_id),
+    FOREIGN KEY (viewer_id) REFERENCES lab1.user(user_id)
 );
 
 # TESTING
 SELECT * FROM lab1.user;
 SELECT * FROM lab1.profile;
+SELECT * FROM lab1.transfers;
+SELECT * FROM lab1.user_access;
 
 SELECT user.pword FROM user WHERE user.email='neid.1993@gmail.com';
 
@@ -43,7 +56,7 @@ INSERT INTO user (email, pword) VALUES ('neid.1993@gmail.com', '$2y$10$y0KaOJbF5
 INSERT INTO lab1.profile (profile_id, user_id) VALUES ('2', '8');
 INSERT INTO lab1.transfers (sender_id, signed_file) VALUES ('10', 'JA(����/J�R�嫂�y�Oن�l�,�����������8n��mf��=�6��[}���g��`H� 0*=6��9����M}� B;s��7G\�0��Ĩ��2�r��j������`�ھ�PkL�n�Č');
 
-DELETE user FROM lab1.user WHERE user_id=13;
+DELETE FROM lab1.user WHERE user.user_id=14;
 
 SELECT * FROM lab1.reset_requests;
 

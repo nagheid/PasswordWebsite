@@ -2,23 +2,6 @@
 
 load_profile();
 
-function get_profile() {
-	// Create connection
-	$mysql = connectdb();
-	
-	// Retrieve info
-	// TODO should not be set if user logged out
-	$profile_id = $_GET['profile_id'];
-	$pid_safe = $mysql->real_escape_string($profile_id);
-	
-	// Get profile from db
-	$stmnt = "SELECT * FROM profile WHERE profile.profile_id ='$pid_safe'";
-	$row = $mysql->query($stmnt);
-	$profile = $row->fetch_array();
-	
-	return $profile;
-}
-
 function get_user($user_id) {
 	// Create connection
 	$mysql = connectdb();
@@ -37,7 +20,7 @@ function get_user($user_id) {
 function load_profile() {
 	include('header.php');
 	
-	$profile = get_profile();
+	$profile = get_profile($_GET['profile_id']);
 	$user = get_user($profile['user_id']);
 
 	if ( $profile ) {
@@ -54,10 +37,20 @@ function load_profile() {
 		}
 		
 		// Load first and last name
-		echo "Name: " . $profile['firstname']." ".$profile['lastname'] . "<br/>";
-		echo "Email: " . $user['email'] . "<br/>";
+		echo "Name  : " . $profile['firstname']." ".$profile['lastname'] . "<br/>";
+		echo "Email : " . $user['email'] . "<br/>";
+		echo "Age	: " . $profile['age'] . "<br/>";
+		echo "<br/>";
 		
-		echo "Public key: " . $profile['public_key']."<br/>";
+		// Only show my public key if the person viewing my profile
+		// is logged in AND is on my access list
+		if ( isset($_SESSION['current_uid']) ) {
+			$access_list = get_access_list($user['user_id']);
+			if ( $my_profile || 
+					(!$my_profile && in_array($_SESSION['current_uid'],$access_list)) )  {
+				echo "Public key: " . $profile['public_key']."<br/>";
+			}
+		}
 		
 		echo "<br/>";
 		
@@ -67,9 +60,16 @@ function load_profile() {
 			// Upload public key form
 			echo "
 			<form action='security.php' method='POST'>
-				<!--<textarea name='public_key' required></textarea>-->
 				<input type='text' name='public_key' required>
 				<input type='submit' class='button' value='Upload Public Key' name='upload_public_key'><br/>
+			</form>
+			";
+			
+			// Upload public key form
+			echo "
+			<br>
+			<form action='settings.php' method='POST'>
+				<input type='submit' class='button' value='Settings' name='load_settings'><br/>
 			</form>
 			";
 		}
