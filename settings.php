@@ -2,7 +2,13 @@
 
 include('header.php');
 
-// has to be coming from the settings
+// User not logged in
+if ( !isset($_SESSION['current_uid']) ) {
+	$message = "User is not logged in<br>";
+	header('Location: result.php?result='.$message);
+}
+
+// Has to be coming from the settings
 // button in the profile page
 if (isset($_POST['update_info'])) {
 	update_info();
@@ -55,9 +61,9 @@ function load_settings() {
 function update_info() {
 	// Get info
 	$profile_id = $_SESSION['profile_id'];
-	$fname = ($_POST['fname'] ? $_POST['fname'] : 'NULL');
-	$lname = ($_POST['lname'] ? $_POST['lname'] : 'NULL');
-	$age = ($_POST['age'] ? $_POST['age'] : 'NULL');
+	$fname = ($_POST['fname'] ? real_escape_string($_POST['fname']) : 'NULL');
+	$lname = ($_POST['lname'] ? real_escape_string($_POST['lname']) : 'NULL');
+	$age = ($_POST['age'] ? real_escape_string($_POST['age']) : 'NULL');
 
 	// Connect to DB
 	$mysql = connectdb();
